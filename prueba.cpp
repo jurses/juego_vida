@@ -1,11 +1,20 @@
 #include <iostream>
-#include "tablero.hpp"
+//#include "tablero.hpp"
+#include "celula.hpp"
 
 int main(void){
-    int col = 23;
-    int fil = 5;
+    medio_cultivo_t medio(10, 10);
+	medio.mostrarCultivo(std::cout);
+	std::cout << std::endl;
 
-    for(int i = 1; i<=fil; i++)
-        for(int j = 1; j<=col; j++)
-            std::cout << (i-1)*col+j << std::endl;
+	while(getchar() != 'q' ){
+		medio.explorarCultivo();
+		medio.actualizarCultivo();
+
+		medio.mostrarCultivo(std::cout);
+		std::cout << std::endl;
+
+		medio.mostrarVecinos(std::cout);
+		std::cout << std::endl;
+	}
 }

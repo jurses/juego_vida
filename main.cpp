@@ -1,5 +1,4 @@
 #include <iostream>
-#include <set>
 #include <cstdio>
 #include <cstdlib>
 
@@ -57,7 +56,6 @@ celula_base_t* medio_cultivo_t::obtCelula(int i, int j)const{
 
 class celula_base_t{
 	private:
-		std::set<celula_base_t*> cjtoCelVecinas_;
 		enum celulaTipo{BASE, A, B, C, D, TOTAL};
 		int natA_ = 3;
 		int natB_[2] = {3, 4};
@@ -153,7 +151,7 @@ dim_largo_(largo)
 
 void medio_cultivo_t::mapaDefecto(void){
 	for(int n=0; n<dim_ancho_*dim_largo_;n++)
-		if(rand() % 100 < 13){
+		if(rand() % 100 < 22){
 			delete cultivo_[n];
 			cultivo_[n] = new celula_A_t;
 		}
@@ -293,19 +291,21 @@ std::ostream& medio_cultivo_t::mostrarCultivo(std::ostream& os){
 }
 
 std::ostream& medio_cultivo_t::mostrarVecinos(std::ostream& os){
-	for(int j=0; j<dim_largo_+2; j++)
-		os << '#';
+os << ' ';
+	for(int j=0; j<dim_largo_; j++)
+		os << '#' << ' ';
 
 	os << std::endl;
 	for(int i=1; i<=dim_ancho_; i++){
 		os << '#';
 		for(int j=1; j<=dim_largo_; j++)
-			os << cultivo_[npos(i, j)]->numVecinos();
+			os << cultivo_[npos(i, j)]->numVecinos() << ' ';
 
 		os << '#' << std::endl;
 	}
-	for(int j=0; j<dim_largo_+2; j++)
-		os << '#';
+	os << ' ';
+	for(int j=0; j<dim_largo_; j++)
+		os << '#' << ' ';
 
 	return os;
 }
@@ -316,10 +316,13 @@ int main(void){
 	std::cout << std::endl;
 
 	while(getchar() != 'q' ){
-	medio.explorarCultivo();
-	medio.actualizarCultivo();
+		medio.explorarCultivo();
+		medio.actualizarCultivo();
 
-	medio.mostrarCultivo(std::cout);
-	std::cout << std::endl;
+		medio.mostrarCultivo(std::cout);
+		std::cout << std::endl;
+
+		medio.mostrarVecinos(std::cout);
+		std::cout << std::endl;
 	}
 }
