@@ -74,7 +74,7 @@ class celula_base_t{
 		virtual const char verCelula(void);
 		virtual bool obtEstado(void);
 		virtual int actualizarEstado(void);	//devuelve a qué célula tiene que convertirse
-		virtual bool comprobarNatalidad(int);
+		//virtual bool comprobarNatalidad(int);
 		static celula_base_t* crearCelula(int);
 
 		/////
@@ -126,17 +126,21 @@ void medio_cultivo_t::explorarCultivo(void){
 }
 
 celula_A_t::celula_A_t(){
+	/*
 	natalidad_ = new int[nNat_];
 	resistencia_ = new int[nRes_];
 
 	natalidad_[0] = 3;
 	resistencia_[1] = 2;
 	resistencia_[2] = 3;
+	*/
 }
 
 celula_A_t::~celula_A_t(){
+	/*
 	delete natalidad_;
 	delete resistencia_;
+	*/
 }
 
 medio_cultivo_t::medio_cultivo_t(int ancho, int largo):
@@ -148,7 +152,7 @@ dim_largo_(largo)
 	for(int n=0; n<dim_ancho_*dim_largo_; n++)
 		cultivo_[n] = new celula_base_t;
 
-	mapaDefecto();
+	//mapaDefecto();
 }
 
 void medio_cultivo_t::mapaDefecto(void){
@@ -255,6 +259,7 @@ void medio_cultivo_t::actualizarCultivo(void){
 		}
 }
 
+/*
 bool celula_base_t::comprobarNatalidad(int vecinos){	//en este caso es indiferente el resultado de la natalidad
 	return false;
 }
@@ -266,6 +271,7 @@ bool celula_A_t::comprobarNatalidad(int vecinos){
 	
 	return false;
 }
+*/
 
 void medio_cultivo_t::ponCelula(int i, int j){
 	delete cultivo_[npos(i, j)];
@@ -311,9 +317,14 @@ std::ostream& medio_cultivo_t::mostrarVecinos(std::ostream& os){
 }
 
 int main(void){
-	medio_cultivo_t medio(10, 10);
-	medio.mostrarCultivo(std::cout);
-	std::cout << std::endl;
+	medio_cultivo_t medio(40, 40);
+
+	medio.ponCelula(20,20);
+	medio.ponCelula(20,21);
+	medio.ponCelula(21,20);
+	medio.ponCelula(19,20);
+	medio.ponCelula(20,19);
+
 
 	while(getchar() != 'q' ){
 	medio.explorarCultivo();
